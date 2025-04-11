@@ -1,24 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public enum Type {Pawn, Knight, Bishop, Rook, Queen, King};
 public enum PieceColor {White, Black};
 
-#nullable enable
-public class BoardManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static BoardManager instance;
+    public static GameManager instance;
 
     public Color blackTile;
     public Color whiteTIle;
 
+    public GameObject[,] tileBoard;
+
     public GameObject TilePref;
     public GameObject PiecePref;
     public Transform boardParent;
-
-    public Piece?[,] board;
-    public GameObject[,] tileBoard;
 
     public Sprite[] pieceSprites = new Sprite[12];
     public Dictionary<(Type, PieceColor), int> pieceMap = new Dictionary<(Type, PieceColor), int>()
@@ -37,6 +34,8 @@ public class BoardManager : MonoBehaviour
     { (Type.Queen, PieceColor.Black), 10 },
     { (Type.King, PieceColor.Black), 11 }
 };
+
+    public Chess chess;
     
     public void Awake() {
         if (instance != null) {
@@ -47,11 +46,13 @@ public class BoardManager : MonoBehaviour
     }
 
     public void Start() {
+        chess = new Chess();
         SetUpBoard();
     }
 
     public void SetUpBoard() {
-        board = new Piece?[8,8];
+        chess.board = new Piece[8,8];
+        chess.gameColor = PieceColor.White;
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -87,11 +88,16 @@ public class BoardManager : MonoBehaviour
 
                     }
                     piece.SetPiece(Type.Pawn, pieceColor, i, j, pieceSprites[pieceMap[(type, pieceColor)]]);
-                    board[i, j] = piece;
+                    chess.board[i, j] = piece;
                 }
 
             }
         }
+    }
+
+    public void MakeMove(int startY, int startX, int endY, int endX)
+    {
+
     }
 
 

@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 578444338}
   - component: {fileID: 578444337}
   m_Layer: 0
-  m_Name: BoardManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,8 +285,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f8679f04591804bbc8f4410a12eccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackTile: {r: 0.5283019, g: 0.16481623, b: 0.11213957, a: 1}
-  whiteTIle: {r: 0.8584906, g: 0.74135005, b: 0.68436277, a: 1}
+  blackTile:
+    r: 0.5283019
+    g: 0.16481623
+    b: 0.11213957
+    a: 1
+  whiteTIle:
+    r: 0.8584906
+    g: 0.74135005
+    b: 0.68436277
+    a: 1
   TilePref: {fileID: 1435757425467540806, guid: 910dacf8cbca12f428e2f7a674e211b8, type: 3}
   PiecePref: {fileID: 5336053463561836687, guid: d3f47e6fb609a644cbf8039718c2b27f, type: 3}
   boardParent: {fileID: 1193431888}
