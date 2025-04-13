@@ -28,7 +28,7 @@ public class MoveManager : MonoBehaviour
         {
             if (GameManager.instance.chess.board[startY, startX] = null) return;
 
-            List<Move> moves = Moves.FindMovesWithStart(startY, startX);
+            List<Move> moves = Moves.FindMovesWithStart(GameManager.instance.chess, startY, startX);
 
             if (moves.Count > 0) { 
 
