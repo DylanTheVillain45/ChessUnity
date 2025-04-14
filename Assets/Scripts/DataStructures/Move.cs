@@ -8,7 +8,7 @@ public class Move : MonoBehaviour
     public int endY;
     public int endX;
 
-    public void SetMove(Piece piece, int startY, int startX, int endY, int endX){
+    public Move(Piece piece, int startY, int startX, int endY, int endX){
         this.piece = piece;
         this.startY = startY;
         this.startX = startX;

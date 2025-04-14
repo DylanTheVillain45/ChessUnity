@@ -2,12 +2,13 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public enum Type {Pawn, Knight, Bishop, Rook, Queen, King};
-public enum PieceColor {White, Black};
+public enum PieceColor { White, Black};
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public Color hightlightColor;
     public Color blackTile;
     public Color whiteTIle;
 
@@ -56,11 +57,11 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                GameObject tile = Instantiate(TilePref, boardParent);
+                GameObject tileObj = Instantiate(TilePref, boardParent);
 
-                tile.transform.position = new Vector2((j - 3.5f) * tile.transform.localScale.x, (i - 3.5f) * tile.transform.localScale.y);
+                tileObj.transform.position = new Vector2((j - 3.5f) * tileObj.transform.localScale.x, (i - 3.5f) * tileObj.transform.localScale.y);
 
-                SpriteRenderer tileRenderer = tile.GetComponent<SpriteRenderer>();
+                SpriteRenderer tileRenderer = tileObj.GetComponent<SpriteRenderer>();
 
                 if ((i + j) % 2 == 0) {
                     tileRenderer.color = blackTile;
@@ -68,10 +69,13 @@ public class GameManager : MonoBehaviour
                     tileRenderer.color = whiteTIle;
                 }
 
-                tile.name = $"Tile-{i}{j}";
+                tileObj.name = $"Tile-{i}{j}";
+                Tile tile = tileObj.GetComponent<Tile>();
+
+                tile.x = j; tile.y = i;
 
                 if (i == 0 || i == 1 || i == 6 || i == 7) {
-                    GameObject pieceObj = Instantiate(PiecePref, tile.transform);
+                    GameObject pieceObj = Instantiate(PiecePref, tileObj.transform);
                     Piece piece = pieceObj.GetComponent<Piece>();
 
                     PieceColor pieceColor;
