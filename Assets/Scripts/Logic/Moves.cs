@@ -71,6 +71,18 @@ public static class Moves
         return moves;
     }
 
+    public static Move FindMoveWithEndAndList(List<Move> moves, int endY, int endX)
+    {
+        for (int i = 0; i < moves.Count; i++)
+        {
+            if (moves[i].endY == endY && moves[i].endX == endX)
+            {
+                return moves[i];
+            }
+        }
+        return null;
+    }
+
     public static void CommitMove(Chess chess, Move move) {
         int startY = move.startY;
         int startX = move.startX;

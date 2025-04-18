@@ -41,8 +41,8 @@ public static class MoveGenerator {
             int newX = piece.x + dx;
             if (newX >= 0 && newX < 8)
             {
-                Piece? capturedPiece = chess.board[newY, newX];
-                Piece? enPassantCapturePiece = chess.board[piece.y, newX];
+                Piece capturedPiece = chess.board[newY, newX];
+                Piece enPassantCapturePiece = chess.board[piece.y, newX];
                 if (capturedPiece != null && capturedPiece.color != piece.color)
                 {
                     Move newMove = new Move(piece, piece.y, piece.x, newY, newX);
@@ -85,7 +85,7 @@ public static class MoveGenerator {
 
             while (newX < 8 && newX >= 0 && newY < 8 && newY >= 0)
             {
-                Piece? landingSquare = chess.board[newY, newX];
+                Piece landingSquare = chess.board[newY, newX];
 
                 if (landingSquare == null)
                 {

@@ -266,6 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 578444338}
   - component: {fileID: 578444339}
+  - component: {fileID: 578444340}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -319,6 +320,24 @@ MonoBehaviour:
   - {fileID: 5782662973348025750, guid: 81b8b7fbe36d5124494385b3e89dbe73, type: 3}
   - {fileID: -7779958110830305896, guid: 8f1102ad9db469f4f9e46cd2b1c72306, type: 3}
   - {fileID: -1676337426513222117, guid: d9d894041d432904c90d555eab313fb8, type: 3}
+--- !u!114 &578444340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578444336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ac2e22e88d29c4da7ac13a00c39b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startY: 0
+  startX: 0
+  endY: 0
+  endX: 0
+  isStart: 1
+  higlightedTiles: []
 --- !u!1 &1193431887
 GameObject:
   m_ObjectHideFlags: 0

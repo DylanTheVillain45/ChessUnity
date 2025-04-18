@@ -62,13 +62,16 @@ public class GameManager : MonoBehaviour
         GameObject tileEnd = tileBoard[move.endY, move.endX];
 
         GameObject startPieceObj = tileStart.transform.GetChild(0).gameObject;
-        GameObject endPieceObj = tileEnd.transform.GetChild(0).gameObject;
+        GameObject endPieceObj = tileEnd.transform.childCount > 0 ? tileEnd.transform.GetChild(0).gameObject : null;
 
-        if (tileEnd.transform.GetChild(0).gameObject != null) {
+        if (endPieceObj != null) {
             Destroy(endPieceObj);
         }
 
         startPieceObj.transform.SetParent(tileEnd.transform);
+        startPieceObj.transform.position = new Vector3(tileEnd.transform.position.x, tileEnd.transform.position.y, -1);
+
+        chess.MakeMove(move);
 
         GetMoves();
 
