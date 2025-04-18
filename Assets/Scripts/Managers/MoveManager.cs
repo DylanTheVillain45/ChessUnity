@@ -17,36 +17,38 @@ public class MoveManager : MonoBehaviour
     }
 
     public int startY;
-    public int StartX;
+    public int startX;
     public int endY;
     public int endX;
-    public bool isStart;
+    public bool isStart = true;
     private List<Move> moveList;
-    public void HandleClick(int y, int x)
-    {
-        GameObject tileObj = GameManager.instance.tileBoard[y, x];
 
-        if (tileObj) return;
+    public void HandleClick(GameObject tileObj)
+    {
+        if (tileObj == null) return;
 
         Tile tile = tileObj.GetComponent<Tile>();
 
+        int y = tile.y;
+        int x = tile.x;
+
         if (isStart)
         {
-            if (tileObj.transform.GetChild(0) != null) return;
+            if (tileObj.transform.GetChild(0) == null) return;
 
             Piece piece = tileObj.transform.GetChild(0).gameObject.GetComponent<Piece>();
-
-            SetStart(y, x);
-            isStart = false;
 
             List<Move> moveList = Moves.FindMovesWithStart(GameManager.instance.chess, piece);
 
             if (moveList.Count > 0) {
+                SetStart(y, x);
+
                 for (int i = 0; i < moveList.Count; i++)
                 {
                     Move move = moveList[i];
-
-                    GameManager.instance.tileBoard[move.startY, move.startX].GetComponent<SpriteRenderer>().color = GameManager.instance.hightlightColor;
+                    GameObject landingTileObj = GameManager.instance.tileBoard[move.endY, move.endX];
+                    SpriteRenderer landingTileRender = landingTileObj.GetComponent<SpriteRenderer>();
+                    landingTileRender.color = GameManager.instance.hightlightColor;
                 }
             }
 
@@ -59,7 +61,8 @@ public class MoveManager : MonoBehaviour
 
     private void SetStart(int y, int x)
     {
-        startY = y;
-        StartX = x;
+        this.startY = y;
+        this.startX = x;
+        this.isStart = false;
     }
 }

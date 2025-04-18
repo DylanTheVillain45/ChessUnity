@@ -7,6 +7,6 @@ public class Tile : MonoBehaviour
 
     public void OnMouseDown()
     {
-        MoveManager.instance.HandleClick(y, x);
+        MoveManager.instance.HandleClick(this.gameObject);
     }
 }

@@ -20,21 +20,21 @@ public class GameManager : MonoBehaviour
 
     public Sprite[] pieceSprites = new Sprite[12];
     public Dictionary<(Type, PieceColor), int> pieceMap = new Dictionary<(Type, PieceColor), int>()
-{
-    { (Type.Pawn, PieceColor.White), 0 },
-    { (Type.Knight, PieceColor.White), 1 },
-    { (Type.Bishop, PieceColor.White), 2 },
-    { (Type.Rook, PieceColor.White), 3 },
-    { (Type.Queen, PieceColor.White), 4 },
-    { (Type.King, PieceColor.White), 5 },
+    {
+        { (Type.Pawn, PieceColor.White), 0 },
+        { (Type.Knight, PieceColor.White), 1 },
+        { (Type.Bishop, PieceColor.White), 2 },
+        { (Type.Rook, PieceColor.White), 3 },
+        { (Type.Queen, PieceColor.White), 4 },
+        { (Type.King, PieceColor.White), 5 },
 
-    { (Type.Pawn, PieceColor.Black), 6 },
-    { (Type.Knight, PieceColor.Black), 7 },
-    { (Type.Bishop, PieceColor.Black), 8 },
-    { (Type.Rook, PieceColor.Black), 9 },
-    { (Type.Queen, PieceColor.Black), 10 },
-    { (Type.King, PieceColor.Black), 11 }
-};
+        { (Type.Pawn, PieceColor.Black), 6 },
+        { (Type.Knight, PieceColor.Black), 7 },
+        { (Type.Bishop, PieceColor.Black), 8 },
+        { (Type.Rook, PieceColor.Black), 9 },
+        { (Type.Queen, PieceColor.Black), 10 },
+        { (Type.King, PieceColor.Black), 11 }
+    };
 
     public Chess chess;
     
@@ -49,10 +49,33 @@ public class GameManager : MonoBehaviour
     public void Start() {
         chess = new Chess();
         SetUpBoard();
+        GetMoves();
     }
 
+    public void GetMoves() {
+        chess.GetMoves();
+    }
+
+    public void MakeMove(Move move)
+    {
+        GameObject tileStart = tileBoard[move.startY, move.startX];
+        GameObject tileEnd = tileBoard[move.endY, move.endX];
+
+        GameObject startPieceObj = tileStart.transform.GetChild(0).gameObject;
+        GameObject endPieceObj = tileEnd.transform.GetChild(0).gameObject;
+
+        if (tileEnd.transform.GetChild(0).gameObject != null) {
+            Destroy(endPieceObj);
+        }
+
+        startPieceObj.transform.SetParent(tileEnd.transform);
+
+        GetMoves();
+
+    }
     public void SetUpBoard() {
         chess.board = new Piece[8,8];
+        tileBoard = new GameObject[8, 8];
         chess.gameColor = PieceColor.White;
 
         for (int i = 0; i < 8; i++) {
@@ -71,8 +94,8 @@ public class GameManager : MonoBehaviour
 
                 tileObj.name = $"Tile-{i}{j}";
                 Tile tile = tileObj.GetComponent<Tile>();
-
                 tile.x = j; tile.y = i;
+                tileBoard[i, j] = tileObj;
 
                 if (i == 0 || i == 1 || i == 6 || i == 7) {
                     GameObject pieceObj = Instantiate(PiecePref, tileObj.transform);
@@ -98,11 +121,4 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    public void MakeMove(int startY, int startX, int endY, int endX)
-    {
-
-    }
-
-
 }

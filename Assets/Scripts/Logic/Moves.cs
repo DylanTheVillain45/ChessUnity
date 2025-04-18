@@ -53,21 +53,33 @@ public static class Moves
         //    chess.MoveDictionary.Add(algebraicNotation, move);
         //}
 
-        chess.Moves.Add(move);
+        chess.MovesList.Add(move);
     }
 
     public static List<Move> FindMovesWithStart(Chess chess, Piece piece)
     {
         List<Move> moves = new List<Move>();
 
-        for (int i = 0; i < chess.Moves.Count; i++)
+        for (int i = 0; i < chess.MovesList.Count; i++)
         {
-            if (chess.Moves[i].piece == piece)
+            if (chess.MovesList[i].piece == piece)
             {
-                moves.Add(chess.Moves[i]);
+                moves.Add(chess.MovesList[i]);
             }
         }
 
         return moves;
+    }
+
+    public static void CommitMove(Chess chess, Move move) {
+        int startY = move.startY;
+        int startX = move.startX;
+        int endY = move.endY;
+        int endX = move.endX;
+        
+        Piece piece = move.piece;
+
+        chess.board[startY, startX] = null;
+        chess.board[endY, endX] = piece;
     }
 }

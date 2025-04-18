@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class Move : MonoBehaviour
+public class Move
 {
     public Piece piece;
     public int startY;
