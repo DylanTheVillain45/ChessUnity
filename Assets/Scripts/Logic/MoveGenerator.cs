@@ -7,7 +7,6 @@ public static class MoveGenerator {
                 }
             }
         }
-
     }
 
     static void GetMoves(Chess chess, Piece piece) {

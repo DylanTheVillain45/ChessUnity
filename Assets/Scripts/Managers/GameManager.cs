@@ -117,10 +117,9 @@ public class GameManager : MonoBehaviour
                         if (j == 4) type = Type.King;
 
                     }
-                    piece.SetPiece(Type.Pawn, pieceColor, i, j, pieceSprites[pieceMap[(type, pieceColor)]]);
+                    piece.SetPiece(type, pieceColor, i, j, pieceSprites[pieceMap[(type, pieceColor)]]);
                     chess.board[i, j] = piece;
                 }
-
             }
         }
     }

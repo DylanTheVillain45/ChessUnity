@@ -93,5 +93,6 @@ public static class Moves
 
         chess.board[startY, startX] = null;
         chess.board[endY, endX] = piece;
+        (piece.x, piece.y) = (endX, endY);
     }
 }
