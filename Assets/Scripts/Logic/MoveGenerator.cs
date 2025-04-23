@@ -44,14 +44,14 @@ public static class MoveGenerator {
                 Piece enPassantCapturePiece = chess.board[piece.y, newX];
                 if (capturedPiece != null && capturedPiece.color != piece.color)
                 {
-                    Move newMove = new Move(piece, piece.y, piece.x, newY, newX);
+                    Move newMove = new Move(piece, piece.y, piece.x, newY, newX, true, capturedPiece);
                     Moves.AddMove(chess, newMove);
                 }
                 else if (capturedPiece == null && enPassantCapturePiece != null && enPassantCapturePiece.type == Type.Pawn && enPassantCapturePiece.color != piece.color)
                 {
                     if (isValidEnPassant(chess, piece, newX, direction))
                     {
-                        Move newMove = new Move(piece, piece.y, piece.x, newY, newX);
+                        Move newMove = new Move(piece, piece.y, piece.x, newY, newX, true, enPassantCapturePiece, false, false, false, true);
                         Moves.AddMove(chess, newMove);
                     }
                 }
@@ -94,7 +94,7 @@ public static class MoveGenerator {
 
                 else if (landingSquare.color != piece.color)
                 {
-                    Move newMove = new Move(piece, piece.y, piece.x, newY, newX);
+                    Move newMove = new Move(piece, piece.y, piece.x, newY, newX, true, landingSquare);
                     Moves.AddMove(chess, newMove);
                     break;
                 }

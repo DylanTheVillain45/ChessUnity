@@ -123,4 +123,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void RaiseError(string message) {
+        Debug.LogError(message);
+    }
 }
