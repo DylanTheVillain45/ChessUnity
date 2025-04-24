@@ -18,7 +18,7 @@ public class Move
     public bool isCheckMate;
     public bool isStaleMate;
 
-    public Move(Piece piece, int startY, int startX, int endY, int endX, bool isCapture = false, Piece capturedPiece = null, bool isCheck = false, bool isCastle = false, bool isShortCastle = false, bool isEnpassant = false, bool isPromotion = false, Type promotionPiece = Type.Pawn) {
+    public Move(Piece piece, int startY, int startX, int endY, int endX, bool isCapture = false, Piece capturedPiece = null, bool isCastle = false, bool isShortCastle = false, bool isEnpassant = false, bool isPromotion = false, Type promotionPiece = Type.Pawn) {
         this.piece = piece;
 
         this.startY = startY;
@@ -28,7 +28,6 @@ public class Move
         
         this.isCapture = isCapture;
         this.capturedPiece = capturedPiece;
-        this.isCheck = isCheck;
         this.isCastle = isCastle;
         this.isShortCastle = isShortCastle;
         this.isEnpassant = isEnpassant;

@@ -29,6 +29,7 @@ public static class Moves
 
         if (isCheck)
         {
+            // GameManager.instance.RaiseError("Check found when not supposed to");
            List<Move> temp = chess.MovesList;
            MoveGenerator.GetAllMoves(chess, opponentColor);
            if (chess.MovesList.Count == 0) {
@@ -83,7 +84,7 @@ public static class Moves
         Piece piece = move.piece;
         Piece capturedPiece = move.capturedPiece;
         (piece.x, piece.y) = (startX, startY);
-
+        chess.board[startY, startX] = piece;
         
         if (move.isCastle) {
             int rookStartX = move.isShortCastle ? 0 : 7;
