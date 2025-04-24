@@ -59,8 +59,8 @@ public static class Moves
         chess.board[endY, endX] = piece;
 
         if (move.isCastle) {
-            int rookStartX = move.isShortCastle ? 0 : 7;
-            int rookEndX = move.isShortCastle ? 2 : 4; 
+            int rookStartX = move.isShortCastle ? 7 : 0;
+            int rookEndX = move.isShortCastle ? 5 : 3; 
 
             Piece rook = chess.board[startY, rookStartX];
             if (rook != null && rook.type == Type.Rook) {
@@ -72,6 +72,10 @@ public static class Moves
 
         if (move.isEnpassant) {
             chess.board[startY, endX] = null;
+        }
+
+        if (move.isPromotion) {
+            piece.type = move.promotionPiece;
         }
     }
 
@@ -87,8 +91,8 @@ public static class Moves
         chess.board[startY, startX] = piece;
         
         if (move.isCastle) {
-            int rookStartX = move.isShortCastle ? 0 : 7;
-            int rookEndX = move.isShortCastle ? 2 : 4; 
+            int rookStartX = move.isShortCastle ? 7 : 0;
+            int rookEndX = move.isShortCastle ? 5 : 3; 
 
             Piece rook = chess.board[startY, rookEndX];
             if (rook != null && rook.type == Type.Rook) {
@@ -108,6 +112,10 @@ public static class Moves
         else {
             chess.board[move.endY, move.endX] = null;    
         } 
+
+        if (move.isPromotion) {
+            piece.type = Type.Pawn;
+        }
     }
 
     public static List<Move> FindMovesWithStart(Chess chess, Piece piece)

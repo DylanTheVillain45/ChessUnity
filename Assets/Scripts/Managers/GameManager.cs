@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void MakeMove(Move move)
-    {
+    {    
         GameObject tileStart = tileBoard[move.startY, move.startX];
         GameObject tileEnd = tileBoard[move.endY, move.endX];
 
@@ -68,10 +68,31 @@ public class GameManager : MonoBehaviour
             Destroy(endPieceObj);
         }
 
+        if (move.isEnpassant) {
+            GameObject enPassantSquare = tileBoard[move.startY, move.endX];
+            GameObject enPassantPiece = enPassantSquare.transform.GetChild(0).gameObject;
+            Destroy(enPassantPiece);
+        }
+
+        if (move.isCastle) {
+            int rookStartX = move.isShortCastle ? 7 : 0;
+            int rookEndX = move.isShortCastle ? 5 : 3; 
+
+            GameObject rookPiece = tileBoard[move.startY, rookStartX].transform.GetChild(0).gameObject;
+            GameObject rookSpot = tileBoard[move.startY, rookEndX];
+
+            rookPiece.transform.SetParent(rookSpot.transform);
+            rookPiece.transform.position = new Vector3(rookSpot.transform.position.x, rookSpot.transform.position.y, -1);
+        }
+
         startPieceObj.transform.SetParent(tileEnd.transform);
         startPieceObj.transform.position = new Vector3(tileEnd.transform.position.x, tileEnd.transform.position.y, -1);
 
         chess.MakeMove(move);
+
+        if (move.isPromotion) {
+            startPieceObj.GetComponent<SpriteRenderer>().sprite = pieceSprites[pieceMap[(move.promotionPiece, move.piece.color)]];
+        }
 
         GetMoves();
 
@@ -99,6 +120,7 @@ public class GameManager : MonoBehaviour
                 Tile tile = tileObj.GetComponent<Tile>();
                 tile.x = j; tile.y = i;
                 tileBoard[i, j] = tileObj;
+                tile.RemoveText();
 
                 if (i == 0 || i == 1 || i == 6 || i == 7) {
                     GameObject pieceObj = Instantiate(PiecePref, tileObj.transform);

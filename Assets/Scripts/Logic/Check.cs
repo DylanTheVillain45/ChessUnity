@@ -1,6 +1,8 @@
 public static class Check {
-    public static bool CheckCheck(Chess chess, PieceColor color) {
-        Piece king = FindKing(chess, color);
+    public static bool CheckCheck(Chess chess, PieceColor color, Piece king = null) {
+        if (king == null) {
+            king = FindKing(chess, color);
+        }
 
         if (king == null) {
             GameManager.instance.RaiseError("KING NOT FOUND");
