@@ -21,11 +21,17 @@ public class MoveManager : MonoBehaviour
     public int endY;
     public int endX;
     public bool isStart = true;
-    public List<Move> moveList = new List<Move>();
-    public List<GameObject> higlightedTiles = new List<GameObject>();
+    private List<Move> moveList = new List<Move>();
+    private List<GameObject> higlightedTiles = new List<GameObject>();
+    public GameObject PromotingSelector;
+    private GameObject currentPromoter;
 
     public void HandleClick(GameObject tileObj)
     {
+        if (currentPromoter != null) { 
+            UnHighlightTiles();
+            Destroy(currentPromoter);
+        }
         if (tileObj == null) return;
 
         Tile tile = tileObj.GetComponent<Tile>();
@@ -54,12 +60,35 @@ public class MoveManager : MonoBehaviour
             }
         } else if (isStart == false && (piece == null || (piece.color != GameManager.instance.chess.gameColor) && piece.type != Type.King)) {
             Move move = Moves.FindMoveWithEndAndList(moveList, y, x);
-
+            (endY, endX) = (y, x);
             if (move == null) return;
 
-            SetReset();
-            GameManager.instance.MakeMove(move);
+            if (move.isPromotion) {
+                FindPromotingPiece(move.piece.color);
+            } else {
+                CommitMove(move);
+            }
+            
         }
+    }
+
+    private void FindPromotingPiece(PieceColor color) {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        GameObject piecePromoter = Instantiate(PromotingSelector, this.transform);
+        currentPromoter = piecePromoter;
+        piecePromoter.transform.position = new Vector3(mouseWorldPos.x + (piecePromoter.transform.localScale.x / 2), mouseWorldPos.y + 3 * ((color == PieceColor.White ? (-piecePromoter.transform.localScale.y / 2) : (piecePromoter.transform.localScale.y / 2))), -5);
+    }
+
+    public void FindAndCommitPromotionMove(Type type) {
+        Destroy(currentPromoter);
+        Move move = Moves.FindMoveWithEndAndListPromotion(moveList, endY, endX, type);
+        CommitMove(move);
+    }
+
+    public void CommitMove(Move move) {
+        SetReset();
+        GameManager.instance.MakeMove(move);
     }
 
     private void SetStart(int y, int x)
@@ -74,6 +103,8 @@ public class MoveManager : MonoBehaviour
         UnHighlightTiles();
         this.startY = 0;
         this.startX = 0;
+        this.endY = 0;
+        this.endX = 0;
         this.isStart = true;
         higlightedTiles = new List<GameObject>();
     }

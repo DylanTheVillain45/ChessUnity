@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < 8; j++) {
                 GameObject tileObj = Instantiate(TilePref, boardParent);
 
-                tileObj.transform.position = new Vector2((j - 3.5f) * tileObj.transform.localScale.x, (i - 3.5f) * tileObj.transform.localScale.y);
+                tileObj.transform.position = new Vector2((j - 3.5f) * tileObj.transform.localScale.x + 2, (i - 3.5f) * tileObj.transform.localScale.y);
 
                 SpriteRenderer tileRenderer = tileObj.GetComponent<SpriteRenderer>();
 

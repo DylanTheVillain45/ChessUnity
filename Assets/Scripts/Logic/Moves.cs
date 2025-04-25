@@ -145,4 +145,16 @@ public static class Moves
         return null;
     }
 
+        public static Move FindMoveWithEndAndListPromotion(List<Move> moves, int endY, int endX, Type type)
+    {
+        for (int i = 0; i < moves.Count; i++)
+        {
+            if (moves[i].endY == endY && moves[i].endX == endX && moves[i].isPromotion && moves[i].promotionPiece == type)
+            {
+                return moves[i];
+            }
+        }
+        return null;
+    }
+
 }
