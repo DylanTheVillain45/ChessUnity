@@ -1,5 +1,0 @@
-public static class MoveListOrdering {
-    public static void OrderForABPrune(List<Move> moveList) {
-        
-    }
-}

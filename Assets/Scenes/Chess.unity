@@ -307,6 +307,7 @@ MonoBehaviour:
   TilePref: {fileID: 1435757425467540806, guid: 910dacf8cbca12f428e2f7a674e211b8, type: 3}
   PiecePref: {fileID: 5336053463561836687, guid: d3f47e6fb609a644cbf8039718c2b27f, type: 3}
   boardParent: {fileID: 1193431888}
+  isMoving: 0
   pieceSprites:
   - {fileID: -8532004215358912450, guid: 03652c5297f7651488f63285184a4c68, type: 3}
   - {fileID: 8777228521865428122, guid: d0ee7256dc4731848ae4f774d6c37427, type: 3}

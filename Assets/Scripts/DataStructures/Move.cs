@@ -34,4 +34,28 @@ public class Move
         this.isPromotion = isPromotion;
         this.promotionPiece = promotionPiece;
     }
+
+    public Move Clone()
+{
+    return new Move(
+        piece,
+        startY,
+        startX,
+        endY,
+        endX,
+        isCapture,
+        capturedPiece != null ? capturedPiece : null,
+        isCastle,
+        isShortCastle,
+        isEnpassant,
+        isPromotion,
+        promotionPiece
+    )
+    {
+        isCheck = this.isCheck,
+        isCheckMate = this.isCheckMate,
+        isStaleMate = this.isStaleMate
+    };
+}
+
 }

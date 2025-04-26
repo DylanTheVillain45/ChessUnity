@@ -6,12 +6,13 @@ public class Chess {
     public PieceColor gameColor;
     
     public List<(Move, Move)> PastMoves = new List<(Move, Move)>();
+    public bool isAiMove = false;
 
 
     public void GetMoves() {
         MovesList = new List<Move>();
 
-        MoveGenerator.GetAllMoves(this, this.gameColor);
+        MoveGenerator.GetAllMoves(this, gameColor);
     }
 
     public void MakeMove(Move move) {
@@ -24,5 +25,6 @@ public class Chess {
         }
 
         gameColor = gameColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
+        isAiMove = isAiMove ? false : true;
     }
 }

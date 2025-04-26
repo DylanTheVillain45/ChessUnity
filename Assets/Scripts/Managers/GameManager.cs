@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public enum Type {Pawn, Knight, Bishop, Rook, Queen, King};
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     public GameObject TilePref;
     public GameObject PiecePref;
     public Transform boardParent;
+
+    public bool isMoving = false;
 
     public Sprite[] pieceSprites = new Sprite[12];
     public Dictionary<(Type, PieceColor), int> pieceMap = new Dictionary<(Type, PieceColor), int>()
@@ -58,6 +61,10 @@ public class GameManager : MonoBehaviour
 
     public void MakeMove(Move move)
     {    
+        if (isMoving) {
+            return;
+        }
+
         GameObject tileStart = tileBoard[move.startY, move.startX];
         GameObject tileEnd = tileBoard[move.endY, move.endX];
 
@@ -95,6 +102,27 @@ public class GameManager : MonoBehaviour
         }
 
         GetMoves();
+
+        if (chess.isAiMove) {
+            StartCoroutine(MakeAIMove(1));
+        }
+    }
+
+    public IEnumerator MakeAIMove(float delay) {
+        isMoving = true;
+
+        yield return new WaitForSeconds(delay);
+
+        isMoving = false;
+
+        if (chess.MovesList.Count > 0)
+        {
+            foreach (Move move in chess.MovesList) {
+                RaiseError(move.piece.color.ToString());
+            }
+            Move aiMove = chess.MovesList[Random.Range(0, chess.MovesList.Count)];
+            MakeMove(aiMove);
+        }
 
     }
     public void SetUpBoard() {

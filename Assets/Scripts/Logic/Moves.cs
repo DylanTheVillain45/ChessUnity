@@ -30,7 +30,7 @@ public static class Moves
         if (isCheck)
         {
             // GameManager.instance.RaiseError("Check found when not supposed to");
-           List<Move> temp = chess.MovesList;
+           List<Move> temp = MoveListOrdering.CreateDeepCopy(chess.MovesList);
            MoveGenerator.GetAllMoves(chess, opponentColor);
            if (chess.MovesList.Count == 0) {
                move.isCheckMate = true;

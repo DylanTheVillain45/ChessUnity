@@ -32,7 +32,7 @@ public class MoveManager : MonoBehaviour
             UnHighlightTiles();
             Destroy(currentPromoter);
         }
-        if (tileObj == null) return;
+        if (tileObj == null || GameManager.instance.isMoving) return;
 
         Tile tile = tileObj.GetComponent<Tile>();
         Piece piece = tile.transform.childCount > 0 ? tile.transform.GetChild(0).GetComponent<Piece>() : null;

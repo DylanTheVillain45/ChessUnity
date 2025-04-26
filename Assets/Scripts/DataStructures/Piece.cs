@@ -15,4 +15,10 @@ public class Piece : MonoBehaviour
         this.x = x;
         this.spriteRenderer.sprite = sprite;
     }
+
+    
+    public Piece Clone()
+    {
+        return new Piece { x = this.x, y = this.y, color = this.color, type = this.type };
+    }
 }

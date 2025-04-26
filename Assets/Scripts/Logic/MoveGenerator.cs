@@ -28,7 +28,6 @@ public static class MoveGenerator {
 
         if (chess.board[piece.y + direction, piece.x] == null) {
             if (piece.y + direction == endRow) {
-                GameManager.instance.RaiseError("PROMOTION");
                 for (int i = 0; i < promotablePieces.Length; i++) {
                     Move newMove = new Move(piece, piece.y, piece.x, piece.y + direction, piece.x, false, null, false, false, false, true, promotablePieces[i]);
                     Moves.AddMove(chess, newMove);
@@ -55,7 +54,6 @@ public static class MoveGenerator {
                 if (capturedPiece != null && capturedPiece.color != piece.color)
                 {
                     if (newY == endRow) {
-                        GameManager.instance.RaiseError("PROMOTION");
                         for (int i = 0; i < promotablePieces.Length; i++) {
                             Move newMove = new Move(piece, piece.y, piece.x, newY, newX, true, capturedPiece, false, false, false, true, promotablePieces[i]);
                             Moves.AddMove(chess, newMove);
